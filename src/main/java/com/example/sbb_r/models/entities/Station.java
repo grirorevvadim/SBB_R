@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Station {
+public class Station extends AbstractEntity {
     private String stationName;
 
 
