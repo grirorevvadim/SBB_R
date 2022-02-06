@@ -2,6 +2,7 @@ package com.example.sbb_r.models.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ public class User extends AbstractEntity implements Serializable {
 
     private String emailVerificationToken;
 
-    @Column(nullable = false, columnDefinition = "boolean default false")
+    @Column
     private Boolean emailVerificationStatus;
 
     @Column
@@ -30,6 +31,7 @@ public class User extends AbstractEntity implements Serializable {
     @Column
     private int wallet;
     @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
 
 }

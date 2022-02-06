@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User createUser(User user) {
+        user.setEmailVerificationStatus(true);
         userRepository.save(user);
         return user;
     }
