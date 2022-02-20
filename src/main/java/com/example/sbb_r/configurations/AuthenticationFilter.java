@@ -1,7 +1,10 @@
 package com.example.sbb_r.configurations;
 
+import com.example.sbb_r.SpringApplicationContext;
 import com.example.sbb_r.exceptions.AuthException;
+import com.example.sbb_r.models.dtos.UserDto;
 import com.example.sbb_r.models.entities.User;
+import com.example.sbb_r.servises.interfaces.UserService;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,6 +58,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .setSubject(userName).setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.TOKEN_SECRET)
                 .compact();
+        UserService userService = (UserService) SpringApplicationContext.getBean("userServiceImpl");
+        User user = userService.getUser(userName);
         response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
+        response.addHeader("UserId", user.getId().toString());
     }
 }
