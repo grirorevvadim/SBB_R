@@ -16,12 +16,13 @@ public class UserController {
     private final UserMapper userMapper;
 
     @PostMapping
-    public void createUser(@RequestBody UserDto userDto) {
-         User user = userService.createUser(userMapper.dtoToEntity(userDto));
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        User user = userService.createUser(userMapper.dtoToEntity(userDto));
+        return userMapper.entityToDto(user);
     }
 
     @GetMapping
-    public void getUsers(){
-
+    public String getUser() {
+        return "get user is called";
     }
 }
