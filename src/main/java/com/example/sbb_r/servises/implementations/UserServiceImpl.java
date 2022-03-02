@@ -1,6 +1,6 @@
 package com.example.sbb_r.servises.implementations;
 
-import com.example.sbb_r.models.dtos.UserDto;
+import com.example.sbb_r.exceptions.UserNotFound;
 import com.example.sbb_r.models.entities.User;
 import com.example.sbb_r.models.mappers.UserMapper;
 import com.example.sbb_r.repositories.UserRepository;
@@ -32,16 +32,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String email) {
-        User user = userRepository.findUserByEmail(email);
-        if (user==null) throw new UsernameNotFoundException(email);
+        var user = userRepository.findUserByEmail(email);
+        if (user == null) throw new UsernameNotFoundException(email);
         return user;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-       User user = userRepository.findUserByEmail(email);
-       if (user == null) throw new UsernameNotFoundException(email);
+    public User getUserById(long id) {
+        var user = userRepository.findById(id);
+        if (user.isEmpty()) throw new UserNotFound("User with id: " + id + " isn't found");
+        return user.get();
+    }
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),new ArrayList<>());
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        var user = userRepository.findUserByEmail(email);
+        if (user == null) throw new UsernameNotFoundException(email);
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
 }

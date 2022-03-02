@@ -21,8 +21,8 @@ public class UserController {
         return userMapper.entityToDto(user);
     }
 
-    @GetMapping
-    public String getUser() {
-        return "get user is called";
+    @GetMapping(path = "/{id}")
+    public UserDto getUser(@PathVariable long id) {
+        return userMapper.entityToDto(userService.getUserById(id));
     }
 }
