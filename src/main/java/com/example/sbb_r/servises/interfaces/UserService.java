@@ -13,4 +13,6 @@ public interface UserService extends UserDetailsService {
     User updateUser(User entity);
 
     String deleteUser(long id);
+
+    User getUserByEmail(String email);
 }

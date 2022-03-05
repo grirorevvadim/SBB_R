@@ -36,4 +36,9 @@ public class UserController {
     public UserDto getUser(@PathVariable long id) {
         return userMapper.entityToDto(userService.getUserById(id));
     }
+
+    @GetMapping()
+    public UserDto getUserByEmail(@RequestParam String email) {
+        return userMapper.entityToDto(userService.getUserByEmail(email));
+    }
 }

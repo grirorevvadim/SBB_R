@@ -62,10 +62,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        var user = userRepository.findUserByEmail(email);
+        if (user == null) throw new UserNotFound("User with email: " + email + " isn't found");
+        return user;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         var user = userRepository.findUserByEmail(email);
         if (user == null) throw new UsernameNotFoundException(email);
-
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
 }
