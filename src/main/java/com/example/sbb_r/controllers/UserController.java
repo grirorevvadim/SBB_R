@@ -21,6 +21,12 @@ public class UserController {
         return userMapper.entityToDto(user);
     }
 
+    @PutMapping(path = "/{id}")
+    public UserDto updateUser(@PathVariable long id,@RequestBody UserDto userDto){
+        User user = userService.updateUser(userMapper.dtoToEntity(userDto));
+        return userMapper.entityToDto(user);
+    }
+
     @GetMapping(path = "/{id}")
     public UserDto getUser(@PathVariable long id) {
         return userMapper.entityToDto(userService.getUserById(id));
