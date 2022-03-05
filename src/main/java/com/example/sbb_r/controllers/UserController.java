@@ -22,9 +22,14 @@ public class UserController {
     }
 
     @PutMapping(path = "/{id}")
-    public UserDto updateUser(@PathVariable long id,@RequestBody UserDto userDto){
+    public UserDto updateUser(@PathVariable long id, @RequestBody UserDto userDto) {
         User user = userService.updateUser(userMapper.dtoToEntity(userDto));
         return userMapper.entityToDto(user);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public String deleteUser(@PathVariable long id) {
+        return userService.deleteUser(id);
     }
 
     @GetMapping(path = "/{id}")
