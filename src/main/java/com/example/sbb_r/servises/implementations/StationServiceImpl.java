@@ -37,4 +37,14 @@ public class StationServiceImpl implements StationService {
                 + stationName + " is not found");
         return station;
     }
+
+    @Override
+    public Station updateStation(long id, StationDto stationDto) {
+        var station = stationRepository.findById(id);
+        if (station.isEmpty()) throw new EntityNotFound("Station with id " + id + " was not found");
+        var updatedStation = station.get();
+        if (stationDto.getStationName() != null) updatedStation.setStationName(stationDto.getStationName());
+        stationRepository.save(updatedStation);
+        return updatedStation;
+    }
 }

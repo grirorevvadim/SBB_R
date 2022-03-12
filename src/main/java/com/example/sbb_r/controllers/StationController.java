@@ -27,4 +27,9 @@ public class StationController {
     public StationDto createStation(@RequestBody StationDto stationDto) {
         return stationMapper.entityToDto(stationService.createStation(stationDto));
     }
+
+    @PutMapping(path = "/{id}")
+    public StationDto updateStation(@PathVariable long id, @RequestBody StationDto stationDto) {
+       return stationMapper.entityToDto(stationService.updateStation(id,stationDto));
+    }
 }

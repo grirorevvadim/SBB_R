@@ -9,4 +9,6 @@ public interface StationService {
 
     Station getStation(long id);
     Station getStationByStationName(String stationName);
+
+    Station updateStation(long id, StationDto stationDto);
 }
