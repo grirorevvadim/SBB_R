@@ -8,4 +8,5 @@ public interface StationService {
     Station createStation(StationDto stationDto);
 
     Station getStation(long id);
+    Station getStationByStationName(String stationName);
 }

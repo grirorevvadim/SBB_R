@@ -18,6 +18,11 @@ public class StationController {
         return stationMapper.entityToDto(stationService.getStation(id));
     }
 
+    @GetMapping()
+    public StationDto getStation(@RequestParam String stationName) {
+        return stationMapper.entityToDto(stationService.getStationByStationName(stationName));
+    }
+
     @PostMapping
     public StationDto createStation(@RequestBody StationDto stationDto) {
         return stationMapper.entityToDto(stationService.createStation(stationDto));

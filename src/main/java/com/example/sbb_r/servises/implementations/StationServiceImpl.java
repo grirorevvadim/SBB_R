@@ -29,4 +29,12 @@ public class StationServiceImpl implements StationService {
         if (station.isEmpty()) throw new EntityNotFound("Station with id " + id + " is not found");
         return station.get();
     }
+
+    @Override
+    public Station getStationByStationName(String stationName) {
+        var station = stationRepository.findStationByStationName(stationName);
+        if (station == null) throw new EntityNotFound("Station with stationName "
+                + stationName + " is not found");
+        return station;
+    }
 }
