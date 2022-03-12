@@ -3,6 +3,7 @@ package com.example.sbb_r.models.entities;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
@@ -10,6 +11,8 @@ import java.io.Serializable;
 @Setter
 @Entity(name = "stations")
 public class Station extends AbstractEntity implements Serializable {
+
+    @Column(nullable = false)
     private String stationName;
 
 

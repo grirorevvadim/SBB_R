@@ -1,6 +1,6 @@
 package com.example.sbb_r.servises.implementations;
 
-import com.example.sbb_r.exceptions.UserNotFound;
+import com.example.sbb_r.exceptions.EntityNotFound;
 import com.example.sbb_r.models.entities.User;
 import com.example.sbb_r.repositories.UserRepository;
 import com.example.sbb_r.servises.interfaces.UserService;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(long id) {
         var user = userRepository.findById(id);
-        if (user.isEmpty()) throw new UserNotFound("User with id: " + id + " isn't found");
+        if (user.isEmpty()) throw new EntityNotFound("User with id: " + id + " isn't found");
         return user.get();
     }
 
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String deleteUser(long id) {
         var user = userRepository.findById(id);
-        if (user.isEmpty()) throw new UserNotFound("user with id: " + id + " was not found");
+        if (user.isEmpty()) throw new EntityNotFound("user with id: " + id + " was not found");
         userRepository.delete(user.get());
         return "User with id " + id + " was successfully deleted";
     }
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         var user = userRepository.findUserByEmail(email);
-        if (user == null) throw new UserNotFound("User with email: " + email + " isn't found");
+        if (user == null) throw new EntityNotFound("User with email: " + email + " isn't found");
         return user;
     }
 
