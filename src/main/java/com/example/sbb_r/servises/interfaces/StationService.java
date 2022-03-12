@@ -11,4 +11,6 @@ public interface StationService {
     Station getStationByStationName(String stationName);
 
     Station updateStation(long id, StationDto stationDto);
+
+    String deleteStation(long id);
 }

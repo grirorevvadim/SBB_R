@@ -30,6 +30,11 @@ public class StationController {
 
     @PutMapping(path = "/{id}")
     public StationDto updateStation(@PathVariable long id, @RequestBody StationDto stationDto) {
-       return stationMapper.entityToDto(stationService.updateStation(id,stationDto));
+        return stationMapper.entityToDto(stationService.updateStation(id, stationDto));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public String deleteStation(@PathVariable long id) {
+        return stationService.deleteStation(id);
     }
 }

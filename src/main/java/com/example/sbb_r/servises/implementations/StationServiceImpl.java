@@ -47,4 +47,12 @@ public class StationServiceImpl implements StationService {
         stationRepository.save(updatedStation);
         return updatedStation;
     }
+
+    @Override
+    public String deleteStation(long id) {
+        var station = stationRepository.findById(id);
+        if (station.isEmpty()) throw new EntityNotFound("Station with id: " + id + " was not found");
+        stationRepository.delete(station.get());
+        return "Station with id " + id + " was successfully deleted";
+    }
 }
