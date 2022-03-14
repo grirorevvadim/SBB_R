@@ -4,6 +4,9 @@ import com.example.sbb_r.models.dtos.UserDto;
 import com.example.sbb_r.models.entities.User;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class UserMapper {
 
@@ -28,4 +31,21 @@ public class UserMapper {
         userDto.setBirthdate(user.getBirthdate());
         return userDto;
     }
+
+    public List<UserDto> entitiesToDtos(List<User> users) {
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User u : users) {
+            userDtos.add(entityToDto(u));
+        }
+        return userDtos;
+    }
+
+    public List<User> DtosToEntities(List<UserDto> dtos) {
+        List<User> users = new ArrayList<>();
+        for (UserDto u : dtos) {
+            users.add(dtoToEntity(u));
+        }
+        return users;
+    }
 }
+

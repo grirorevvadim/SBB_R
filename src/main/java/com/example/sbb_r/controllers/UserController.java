@@ -7,6 +7,8 @@ import com.example.sbb_r.servises.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("users")
@@ -37,8 +39,14 @@ public class UserController {
         return userMapper.entityToDto(userService.getUserById(id));
     }
 
-    @GetMapping()
-    public UserDto getUserByEmail(@RequestParam String email) {
-        return userMapper.entityToDto(userService.getUserByEmail(email));
+    @GetMapping
+    public List<UserDto> getUsers(@RequestParam(value = "page", defaultValue = "0") int page
+            , @RequestParam(value = "limit", defaultValue = "25") int limit) {
+        return userMapper.entitiesToDtos(userService.getUsers(page, limit));
     }
+
+//    @GetMapping()
+//    public UserDto getUserByEmail(@RequestParam String email) {
+//        return userMapper.entityToDto(userService.getUserByEmail(email));
+//    }
 }

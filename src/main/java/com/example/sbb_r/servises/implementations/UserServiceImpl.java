@@ -5,6 +5,8 @@ import com.example.sbb_r.models.entities.User;
 import com.example.sbb_r.repositories.UserRepository;
 import com.example.sbb_r.servises.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -66,6 +69,13 @@ public class UserServiceImpl implements UserService {
         var user = userRepository.findUserByEmail(email);
         if (user == null) throw new EntityNotFound("User with email: " + email + " isn't found");
         return user;
+    }
+
+    @Override
+    public List<User> getUsers(int page, int limit) {
+        var pageable = PageRequest.of(page, limit);
+        var usersPage = userRepository.findAll(pageable);
+        return usersPage.getContent();
     }
 
     @Override
